@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,8 @@ public class AppController {
     private String doQuery(String keyword) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(10L, TimeUnit.SECONDS);
+        client.setReadTimeout(10L,TimeUnit.SECONDS);
         Request request = new Request.Builder()
                 .url("https://www.asos.com/search/?q=t+shirt")
                 .method("GET", null)
